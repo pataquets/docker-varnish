@@ -1,10 +1,7 @@
 FROM pataquets/ubuntu:trusty
 
 RUN \
-  gpg --refresh-keys && \
-  gpg --recv-key C4DEFFEB && \
-  gpg --export --armor | apt-key add - && \
-  rm -vrf $HOME/.gnupg && \
+  apt-key adv --keyserver hkp://hkps.pool.sks-keyservers.net --recv-keys C4DEFFEB && \
   echo "deb https://repo.varnish-cache.org/ubuntu/ $(lsb_release -cs) varnish-4.0" > /etc/apt/sources.list.d/varnish.list && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
