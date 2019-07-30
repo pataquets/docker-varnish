@@ -11,4 +11,8 @@ RUN \
     apt-get -y install varnish=4.0.* \
   && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/
+  rm -rf /var/lib/apt/lists/ \
+  && \
+  varnishd -V
+
+ENTRYPOINT [ "varnishd", "-F" ]
