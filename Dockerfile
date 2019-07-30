@@ -1,13 +1,22 @@
-FROM pataquets/ubuntu:xenial
+FROM pataquets/ubuntu:bionic
 
 RUN \
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 34BF6E8ECBF5C49E \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive \
+    apt-get -y install \
+      ca-certificates \
+      gpg \
   && \
+  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3AEAFFBB82FBBA5F && \
   . /etc/lsb-release && \
-  echo "deb https://packagecloud.io/varnishcache/varnish41/ubuntu/ ${DISTRIB_CODENAME} main" \
+  echo "deb https://packagecloud.io/varnishcache/varnish60lts/ubuntu/ ${DISTRIB_CODENAME} main" \
     | tee /etc/apt/sources.list.d/varnish.list \
   && \
   apt-get update && \
+  DEBIAN_FRONTEND=noninteractive \
+    apt-get -y purge --autoremove \
+      gpg \
+  && \
   DEBIAN_FRONTEND=noninteractive \
     apt-get -y install varnish \
   && \
