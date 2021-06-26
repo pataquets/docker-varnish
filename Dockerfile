@@ -7,7 +7,7 @@ RUN \
       ca-certificates \
       gpg \
   && \
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3AEAFFBB82FBBA5F && \
+  apt-key adv --keyserver hkps://keyserver.ubuntu.com --recv-keys 3AEAFFBB82FBBA5F && \
   . /etc/lsb-release && \
   echo "deb https://packagecloud.io/varnishcache/varnish60lts/ubuntu/ ${DISTRIB_CODENAME} main" \
     | tee /etc/apt/sources.list.d/varnish.list \
